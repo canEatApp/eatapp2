@@ -16,9 +16,9 @@ class index extends indexMain {
     function mode(){
         $result=$this->db->select('lists');
         $this->smarty->assign("result",$result);
-        $shop=$this->db->select('shop');
+        $shop=$this->db->where(' srec!=0')->select('shop');
         $this->smarty->assign("shop",$shop);
-        $lunbo=$this->db->where('srec=2')->limit("0,3")->select('shop');
+        $lunbo=$this->db->where('srec=2 ')->limit("0,3")->select('shop');
         $this->smarty->assign("lunbo",$lunbo);
         //首页商品猜你喜欢
         $like=$this->db->where('srec=3')->limit("0,2")->select('commodity');
@@ -31,7 +31,7 @@ class index extends indexMain {
         $sid=$_GET['sid'];
         $result=$this->db->where("lid=$sid")->select('lists');
         $this->smarty->assign("result",$result);
-        $shop=$this->db->where("lid=$sid")->select('shop');
+        $shop=$this->db->where("lid=$sid and srec!=0")->select('shop');
         $this->smarty->assign("shop",$shop);
         $hot=$this->db->where('srec=5')->limit("0,5")->select('commodity');
         $this->smarty->assign("hot",$hot);
